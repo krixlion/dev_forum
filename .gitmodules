@@ -1,0 +1,3 @@
+[submodule "dev-forum"]
+	path = dev-forum
+	url = https://github.com/Krixlion/dev-forum
