@@ -1,3 +1,6 @@
 [submodule "dev-forum_user"]
 	path = dev-forum_user
 	url = https://github.com/Krixlion/dev-forum_user
+[submodule "dev-forum_article"]
+	path = dev-forum_article
+	url = https://github.com/Krixlion/dev-forum_article
