@@ -73,4 +73,4 @@ data:
     scrape_configs:
       - job_name: aggregated-trace-metrics
         static_configs:
-        - targets: ['otel-collector-service:8889', 'article-service:2223']
+        - targets: ['otel-collector-service:8889', 'rabbitmq-service-ui:15672', 'article-service:2224', 'user-service:2223']
