@@ -7,6 +7,7 @@ metadata:
   name: prometheus-d
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       instrumentation: prometheus
@@ -60,6 +61,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  namespace: dev
   name: prometheus-config
   labels:
     instrumentation: prometheus
@@ -73,4 +75,4 @@ data:
     scrape_configs:
       - job_name: aggregated-trace-metrics
         static_configs:
-        - targets: ['otel-collector-service:8889', 'article-service:2223']
+        - targets: ['otel-collector-service:8889', 'article-service:2223', 'rabbitmq-service-ui:15672']

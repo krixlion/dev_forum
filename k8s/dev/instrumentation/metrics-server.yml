@@ -119,6 +119,7 @@ metadata:
   name: metrics-server
   namespace: kube-system
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       k8s-app: metrics-server
