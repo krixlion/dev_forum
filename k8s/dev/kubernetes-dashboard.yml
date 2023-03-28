@@ -37,8 +37,10 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 spec:
+  type: LoadBalancer
   ports:
-    - port: 443
+    - port: 8002
+      protocol: TCP
       targetPort: 8443
   selector:
     k8s-app: kubernetes-dashboard
