@@ -6,3 +6,7 @@
 	path = dev_forum-article
 	url = https://github.com/krixlion/dev_forum-article
 	branch = dev
+[submodule "dev_forum-auth"]
+	path = dev_forum-auth
+	url = https://github.com/krixlion/dev_forum-auth
+	branch = dev
