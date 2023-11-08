@@ -10,3 +10,7 @@
 	path = dev_forum-auth
 	url = https://github.com/krixlion/dev_forum-auth
 	branch = dev
+[submodule "dev_forum-gateway"]
+	path = dev_forum-gateway
+	url = https://github.com/krixlion/dev_forum-gateway
+	branch = dev
