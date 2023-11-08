@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dev
   labels:
     instrumentation: kibana
   name: kibana-d
@@ -15,12 +14,11 @@ spec:
     type: Recreate
   template:
     metadata:
-      namespace: dev
       labels:
         instrumentation: kibana
     spec:
       containers:
-        - image: 'docker.elastic.co/kibana/kibana:8.5.3'
+        - image: "docker.elastic.co/kibana/kibana:8.5.3"
           name: kibana
           env:
             - name: ELASTICSEARCH_HOSTS
@@ -50,7 +48,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: dev
   labels:
     instrumentation: kibana
   name: kibana
@@ -64,7 +61,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   labels:
     instrumentation: kibana
   name: kibana-service

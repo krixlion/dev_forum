@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  namespace: dev
   labels:
     version: v0.1.0
     messageQueue: rabbitmq
@@ -9,18 +8,17 @@ metadata:
 spec:
   serviceName: rabbitmq-service
   volumeClaimTemplates:
-  - metadata:
-      name: rabbitmq-data
-      namespace: dev
-      labels:
-        version: v0.1.0
-        messageQueue: rabbitmq
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      # storageClassName: hostpath
-      resources:
-        requests:
-          storage: 300Mi
+    - metadata:
+        name: rabbitmq-data
+        labels:
+          version: v0.1.0
+          messageQueue: rabbitmq
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # storageClassName: hostpath
+        resources:
+          requests:
+            storage: 300Mi
   replicas: 1
   selector:
     matchLabels:
@@ -28,7 +26,6 @@ spec:
       messageQueue: rabbitmq
   template:
     metadata:
-      namespace: dev
       labels:
         version: v0.1.0
         messageQueue: rabbitmq
@@ -61,7 +58,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   name: rabbitmq-service
   labels:
     version: v0.1.0
@@ -79,7 +75,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   name: rabbitmq-service-ui
   labels:
     version: v0.1.0
@@ -98,8 +93,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: rabbitmq-config
-    namespace: dev
+  name: rabbitmq-config
 data:
-    enabled_plugins: |
-      [rabbitmq_prometheus,rabbitmq_web_dispatch,rabbitmq_management_agent,rabbitmq_management].
+  enabled_plugins: |
+    [rabbitmq_prometheus,rabbitmq_web_dispatch,rabbitmq_management_agent,rabbitmq_management].

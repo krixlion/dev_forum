@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dev
   labels:
     instrumentation: prometheus
   name: prometheus-d
@@ -15,7 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      namespace: dev
       labels:
         instrumentation: prometheus
     spec:
@@ -45,7 +43,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   labels:
     instrumentation: prometheus
   name: prometheus-service
@@ -61,7 +58,6 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: dev
   name: prometheus-config
   labels:
     instrumentation: prometheus

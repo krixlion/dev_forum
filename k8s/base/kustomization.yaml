@@ -1,0 +1,11 @@
+resources:
+  - ca.yaml
+  - fluentd.yaml
+  - kibana.yaml
+  - elasticsearch.yaml
+  - jaeger.yaml
+  - rabbitmq.yaml
+  - local-storage.yaml
+  - otel-collector.yaml
+  - grafana.yaml
+  - prometheus.yaml

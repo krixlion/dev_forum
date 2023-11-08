@@ -1,0 +1,4 @@
+resources:
+  - cert-manager.yaml
+  - metrics-server.yaml
+  - kubernetes-dashboard.yaml

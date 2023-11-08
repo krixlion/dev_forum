@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dev
   labels:
     instrumentation: otel-collector
   name: otel-collector-d
@@ -15,7 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      namespace: dev
       labels:
         instrumentation: otel-collector
     spec:
@@ -44,12 +42,11 @@ spec:
         - name: config
           configMap:
             name: otel-collector-config
-            
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   labels:
     instrumentation: otel-collector
   name: otel-collector-service
@@ -73,7 +70,6 @@ metadata:
   name: otel-collector-config
   labels:
     instrumentation: otel-collector
-  namespace: dev
 data:
   otel-collector-config.yaml: |
     receivers:

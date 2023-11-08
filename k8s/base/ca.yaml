@@ -9,7 +9,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: root-cert
-  namespace: dev
 spec:
   isCA: true
   commonName: root-cert
@@ -24,7 +23,6 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: root-issuer
-  namespace: dev
 spec:
   ca:
     secretName: root-secret

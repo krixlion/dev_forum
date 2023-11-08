@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dev
   labels:
     instrumentation: jaeger
   name: jaeger-d
@@ -15,7 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      namespace: dev
       labels:
         instrumentation: jaeger
     spec:
@@ -53,7 +51,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   labels:
     instrumentation: jaeger
   name: jaeger-ui-service
@@ -69,7 +66,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
   labels:
     instrumentation: jaeger
   name: jaeger-service
@@ -87,7 +83,6 @@ metadata:
   name: jaeger-config
   labels:
     instrumentation: jaeger
-  namespace: dev
 data:
   jaeger-ui.json: |
     {
