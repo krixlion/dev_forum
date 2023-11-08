@@ -10,15 +10,15 @@ metadata:
   name: fluentd-cr
   namespace: dev
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -29,10 +29,9 @@ roleRef:
   name: fluentd-cr
   apiGroup: rbac.authorization.k8s.io
 subjects:
-- kind: ServiceAccount
-  name: fluentd-sa
-  namespace: dev
-
+  - kind: ServiceAccount
+    name: fluentd-sa
+    namespace: dev
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -82,42 +81,42 @@ spec:
       serviceAccountName: fluentd-sa
       terminationGracePeriodSeconds: 30
       tolerations:
-      - key: node-role.kubernetes.io/control-plane
-        effect: NoSchedule
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
+        - key: node-role.kubernetes.io/control-plane
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
       containers:
-      - name: fluentd
-        image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
-        env:
-          - name: K8S_NODE_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: spec.nodeName
-          - name:  FLUENT_ELASTICSEARCH_HOST
-            value: "elasticsearch-service"
-          - name:  FLUENT_ELASTICSEARCH_PORT
-            value: "9200"
-          - name: FLUENT_ELASTICSEARCH_SCHEME
-            value: "http"
-          - name: FLUENT_ELASTICSEARCH_USER
-            value: "admin"
-          - name: FLUENT_ELASTICSEARCH_PASSWORD
-            value: "changeme"
-        resources:
-          limits:
-            memory: 200Mi
-          requests:
-            cpu: 100m
-            memory: 200Mi
-        volumeMounts:
-          - name: varlog
-            mountPath: /var/log
-          - name: containers
-            mountPath: /var/lib/docker/containers
-          - name: config
-            mountPath: /fluentd/etc/fluent.conf
-            subPath: fluent.conf
+        - name: fluentd
+          image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
+          env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: FLUENT_ELASTICSEARCH_HOST
+              value: "elasticsearch-service"
+            - name: FLUENT_ELASTICSEARCH_PORT
+              value: "9200"
+            - name: FLUENT_ELASTICSEARCH_SCHEME
+              value: "http"
+            - name: FLUENT_ELASTICSEARCH_USER
+              value: "admin"
+            - name: FLUENT_ELASTICSEARCH_PASSWORD
+              value: "changeme"
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: varlog
+              mountPath: /var/log
+            - name: containers
+              mountPath: /var/lib/docker/containers
+            - name: config
+              mountPath: /fluentd/etc/fluent.conf
+              subPath: fluent.conf
       volumes:
         - name: varlog
           hostPath:
