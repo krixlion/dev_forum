@@ -1,3 +1,5 @@
+.PHONY: deploy
+
 deploy:
 	- rm ./deploy
 	go build deploy.go
