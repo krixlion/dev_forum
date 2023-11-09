@@ -1,5 +1,5 @@
 resources:
-  - ca.yaml
+  - self-signed-issuer.yaml
   - fluentd.yaml
   - kibana.yaml
   - elasticsearch.yaml
@@ -9,3 +9,4 @@ resources:
   - otel-collector.yaml
   - grafana.yaml
   - prometheus.yaml
+  - ca.yaml

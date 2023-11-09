@@ -8,5 +8,5 @@ transformers:
     kind: NamespaceTransformer
     metadata:
       name: customTransformer
-      namespace: dev
+      namespace: stage
     unsetOnly: true
