@@ -1,9 +1,7 @@
 .PHONY: deploy
 
 deploy:
-	- rm ./deploy
-	go build deploy.go
-	./deploy
+	kubectl -k k8s/overlays/dev apply
 
 add-module: #params: url
 	git submodule add ${url}
