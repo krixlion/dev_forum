@@ -30,31 +30,6 @@ subjects:
   - kind: ServiceAccount
     name: fluentd-sa
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fluentd-config
-data:
-  fluent.conf: |
-    @include kubernetes.conf
-
-    <match **>
-       type elasticsearch
-       log_level info
-       include_tag_key true
-       host elasticsearch-service
-       port 9200
-       user admin
-       password changeme
-       logstash_format true
-       buffer_chunk_limit 2M
-       buffer_queue_limit 32
-       flush_interval 5s
-       max_retry_wait 30
-       disable_retry_limit
-       num_threads 8
-    </match>
----
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:

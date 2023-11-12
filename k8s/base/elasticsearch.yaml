@@ -33,7 +33,6 @@ spec:
           instrumentation: elasticsearch
       spec:
         accessModes: ["ReadWriteOnce"]
-        # storageClassName: hostpath
         resources:
           requests:
             storage: 500Mi

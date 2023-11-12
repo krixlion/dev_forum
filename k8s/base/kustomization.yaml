@@ -10,3 +10,23 @@ resources:
   - grafana.yaml
   - prometheus.yaml
   - ca.yaml
+
+configMapGenerator:
+  - name: fluentd-config
+    files:
+      - config/fluent.conf
+  - name: grafana-datasource-config
+    files:
+      - config/datasource.yaml
+  - name: jaeger-config
+    files:
+      - config/jaeger-ui.json
+  - name: otel-collector-config
+    files:
+      - config/otel-collector-config.yaml
+  - name: prometheus-config
+    files:
+      - config/prometheus.yaml
+  - name: rabbitmq-config
+    files:
+      - config/enabled_plugins

@@ -76,20 +76,3 @@ spec:
       targetPort: 14250
   selector:
     instrumentation: jaeger
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: jaeger-config
-  labels:
-    instrumentation: jaeger
-data:
-  jaeger-ui.json: |
-    {
-        "monitor": {
-          "menuEnabled": true
-        },
-        "dependencies": {
-          "menuEnabled": true
-        }
-      }
