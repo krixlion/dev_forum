@@ -26,7 +26,7 @@ func main() {
 			log.Fatalf("Failed to mount project '%s': %s", entity, err)
 		}
 
-		if err := exec.Command("make", "k8s-run-dev").Run(); err != nil {
+		if err := exec.Command("make", "k8s-run", "overlay=dev").Run(); err != nil {
 			log.Fatalf("Failed to deploy '%s': %s", entity, err)
 		}
 
