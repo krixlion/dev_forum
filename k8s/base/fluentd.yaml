@@ -47,7 +47,6 @@ spec:
         instrumentation: fluentd
         kubernetes.io/cluster-service: "true"
     spec:
-      serviceAccount: fluentd-sa
       serviceAccountName: fluentd-sa
       terminationGracePeriodSeconds: 30
       tolerations:
