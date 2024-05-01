@@ -1,6 +1,7 @@
 resources:
   - ../../base
   - namespace.yaml
+  - local-storage.yaml
 
 transformers:
   - |-
