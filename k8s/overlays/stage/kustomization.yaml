@@ -4,6 +4,7 @@ resources:
 
 components:
   - ../../components/tls
+  - ../../components/telemetry
 
 transformers:
   - |-
