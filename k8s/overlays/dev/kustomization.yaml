@@ -3,6 +3,9 @@ resources:
   - namespace.yaml
   - local-storage.yaml
 
+components:
+  - ../../components/tls
+
 transformers:
   - |-
     apiVersion: builtin

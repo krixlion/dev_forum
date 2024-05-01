@@ -2,6 +2,9 @@ resources:
   - ../../base
   - namespace.yaml
 
+components:
+  - ../../components/tls
+
 transformers:
   - |-
     apiVersion: builtin
