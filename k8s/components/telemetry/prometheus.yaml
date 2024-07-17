@@ -32,7 +32,7 @@ spec:
               memory: 20Mi
           volumeMounts:
             - name: config
-              mountPath: /etc/prometheus/prometheus.yaml
+              mountPath: /etc/prometheus/prometheus.yml
               subPath: prometheus.yaml
       restartPolicy: Always
       volumes:
