@@ -9,7 +9,7 @@ Please feel free to open issues or submit pull requests.
 # dev_forum
 
 Dev forum is a project I've started in order to familiarize myself with the concept and implementation of microservices and related patterns in Go.
-Since this project was created for educational purposes only, the business logic is intentionally kept very basic so I could focus on learning new tools and technologies without wasting time trying to find solutions to complex made-up problems.
+Since this project was created for educational purposes only, the business logic is intentionally kept very basic so I could focus on learning new tools and technologies without wasting time trying to find solutions to made-up problems.
 
 ## Learning Objectives
 
@@ -23,7 +23,7 @@ Configurations for DBs, message brokers etc. are kept at bare minimum required t
 ## Use-cases
 
 Dev forum allows users to register.
-Registered users can create, update and delete articles and allows everyone to read them.
+Registered users can create, update and delete articles and everyone can read them.
 
 That's all.
 
