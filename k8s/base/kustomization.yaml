@@ -1,7 +1,3 @@
 resources:
-  - rabbitmq.yaml
-
-configMapGenerator:
-  - name: rabbitmq-config
-    files:
-      - config/enabled_plugins
+  - https://github.com/rabbitmq/cluster-operator/releases/download/v2.10.0/cluster-operator.yml
+  - rabbitmq-cluster.yaml
