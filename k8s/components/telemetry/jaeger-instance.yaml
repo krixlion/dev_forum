@@ -1,0 +1,28 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+spec:
+  strategy: allInOne
+  allInOne:
+    image: jaegertracing/all-in-one:1.40
+    resources:
+      limits:
+        cpu: 200m
+        memory: 100Mi
+      requests:
+        cpu: 50m
+        memory: 20Mi
+  query:
+    serviceType: LoadBalancer
+  ui:
+    options:
+      dependencies:
+        menuEnabled: true
+      monitor:
+        menuEnabled: true
+      menu:
+        - label: "About Jaeger"
+          items:
+            - label: "Documentation"
+              url: "https://www.jaegertracing.io/docs/latest"
