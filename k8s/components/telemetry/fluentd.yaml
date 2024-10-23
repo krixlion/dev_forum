@@ -63,7 +63,7 @@ spec:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: FLUENT_ELASTICSEARCH_HOST
-              value: "elasticsearch-service"
+              value: "es-cluster-es-default"
             - name: FLUENT_ELASTICSEARCH_PORT
               value: "9200"
             - name: FLUENT_ELASTICSEARCH_SCHEME

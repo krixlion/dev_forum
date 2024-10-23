@@ -1,0 +1,35 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: es-cluster
+spec:
+  version: 8.5.3
+  auth:
+    disableElasticUser: true
+    fileRealm:
+      - secretName: es-admin-credentials
+  nodeSets:
+    - count: 1
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                limits:
+                  cpu: 700m
+                  memory: 1Gi
+                requests:
+                  cpu: 250m
+                  memory: 250Mi
+---
+# Retrieve password for 'elastic' user with:
+# kubectl -n dev get secret es-cluster-es-elastic-user -o go-template='{{.data.elastic | base64decode}}'
+apiVersion: v1
+kind: Secret
+metadata:
+  name: es-admin-credentials
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin
+  password: changeme
+  roles: kibana_admin,ingest_admin
