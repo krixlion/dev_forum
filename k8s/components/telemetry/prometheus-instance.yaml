@@ -1,0 +1,44 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+spec:
+  image: prom/prometheus:v2.41.0
+  scrapeConfigSelector:
+    matchLabels:
+      prometheus: prometheus
+  resources:
+    limits:
+      cpu: 200m
+      memory: 100Mi
+    requests:
+      cpu: 50m
+      memory: 20Mi
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: scrape-config
+  labels:
+    prometheus: prometheus
+spec:
+  staticConfigs:
+    - labels:
+        job: aggregated-metrics
+      targets:
+        - "otel-collector-collector:8889"
+        - "rabbitmq-cluster:15672"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-ui
+spec:
+  type: LoadBalancer
+  ports:
+    - name: web
+      port: 9090
+      protocol: TCP
+      targetPort: web
+  selector:
+    prometheus: prometheus

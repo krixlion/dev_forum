@@ -1,0 +1,48 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana
+  labels:
+    dashboards: "grafana"
+spec:
+  config:
+    security:
+      admin_user: admin
+      admin_password: admin
+  # Retrieve password for 'admin' user with:
+  # kubectl -n dev get secrets/grafana-admin-credentials -o go-template='{{.data.GF_SECURITY_ADMIN_PASSWORD | base64decode}}'
+  service:
+    spec:
+      type: LoadBalancer
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: grafana-datasource-prometheus
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  datasource:
+    name: Prometheus
+    type: prometheus
+    url: http://prometheus-operated:9090
+    isDefault: true
+    access: proxy
+    editable: true
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: grafana-datasource-jaeger
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  datasource:
+    name: Jaeger
+    type: jaeger
+    url: http://jaeger-query:16686
+    isDefault: false
+    access: proxy
+    editable: true
