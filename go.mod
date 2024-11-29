@@ -1,3 +1,3 @@
 module github.com/krixlion/dev_forum
 
-go 1.22
+go 1.23
