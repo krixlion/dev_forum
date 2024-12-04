@@ -1,56 +1,44 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
 metadata:
-  labels:
-    instrumentation: prometheus
-  name: prometheus-d
+  name: prometheus
 spec:
-  replicas: 1
-  revisionHistoryLimit: 0
-  selector:
+  image: prom/prometheus:v2.41.0
+  scrapeConfigSelector:
     matchLabels:
-      instrumentation: prometheus
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        instrumentation: prometheus
-    spec:
-      containers:
-        - image: prom/prometheus:v2.41.0
-          name: prometheus
-          ports:
-            - containerPort: 9090
-            - containerPort: 31923
-          resources:
-            limits:
-              cpu: 200m
-              memory: 100Mi
-            requests:
-              cpu: 50m
-              memory: 20Mi
-          volumeMounts:
-            - name: config
-              mountPath: /etc/prometheus/prometheus.yml
-              subPath: prometheus.yaml
-      restartPolicy: Always
-      volumes:
-        - name: config
-          configMap:
-            name: prometheus-config
+      prometheus: prometheus
+  resources:
+    limits:
+      cpu: 200m
+      memory: 100Mi
+    requests:
+      cpu: 50m
+      memory: 20Mi
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: scrape-config
+  labels:
+    prometheus: prometheus
+spec:
+  staticConfigs:
+    - labels:
+        job: aggregated-metrics
+      targets:
+        - "otel-collector-collector:8889"
+        - "rabbitmq-cluster:15672"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    instrumentation: prometheus
-  name: prometheus-service
+  name: prometheus-ui
 spec:
   type: LoadBalancer
   ports:
-    - name: http
+    - name: web
       port: 9090
-      targetPort: 9090
+      protocol: TCP
+      targetPort: web
   selector:
-    instrumentation: prometheus
+    prometheus: prometheus

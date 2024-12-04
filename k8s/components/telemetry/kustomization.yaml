@@ -1,29 +1,36 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
+  - observability-namespace.yaml
+  - https://github.com/jaegertracing/jaeger-operator/releases/download/v1.62.0/jaeger-operator.yaml
+  - https://github.com/open-telemetry/opentelemetry-operator/releases/download/v0.110.0/opentelemetry-operator.yaml
   - https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.2/components.yaml
+  - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.77.1/bundle.yaml
+  - https://github.com/grafana/grafana-operator/releases/download/v5.14.0/kustomize-cluster_scoped.yaml
+  - https://download.elastic.co/downloads/eck/2.14.0/crds.yaml
+  - https://download.elastic.co/downloads/eck/2.14.0/operator.yaml
   - kubernetes-dashboard.yaml
   - fluentd.yaml
-  - kibana.yaml
-  - elasticsearch.yaml
-  - jaeger.yaml
-  - otel-collector.yaml
-  - grafana.yaml
-  - prometheus.yaml
+  - kibana-instance.yaml
+  - elasticsearch-instance.yaml
+  - jaeger-instance.yaml
+  - otel-collector-instance.yaml
+  - grafana-instance.yaml
+  - prometheus-instance.yaml
 
 configMapGenerator:
   - name: fluentd-config
     files:
       - config/fluent.conf
-  - name: grafana-datasource-config
-    files:
-      - config/datasource.yaml
-  - name: jaeger-config
-    files:
-      - config/jaeger-ui.json
-  - name: otel-collector-config
-    files:
-      - config/otel-collector-config.yaml
-  - name: prometheus-config
-    files:
-      - config/prometheus.yaml
+
+patches:
+  # Set grafana logs format to JSON.
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: grafana-operator-controller-manager
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --zap-encoder=json

@@ -1,81 +1,48 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
 metadata:
+  name: grafana
   labels:
-    instrumentation: grafana
-  name: grafana-d
+    dashboards: "grafana"
 spec:
-  replicas: 1
-  revisionHistoryLimit: 0
-  selector:
-    matchLabels:
-      instrumentation: grafana
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        instrumentation: grafana
+  config:
+    security:
+      admin_user: admin
+      admin_password: admin
+  # Retrieve password for 'admin' user with:
+  # kubectl -n dev get secrets/grafana-admin-credentials -o go-template='{{.data.GF_SECURITY_ADMIN_PASSWORD | base64decode}}'
+  service:
     spec:
-      containers:
-        - env:
-            - name: GF_AUTH_ANONYMOUS_ENABLED
-              value: "true"
-            - name: GF_AUTH_ANONYMOUS_ORG_ROLE
-              value: Admin
-            - name: GF_AUTH_DISABLE_LOGIN_FORM
-              value: "true"
-          image: grafana/grafana:9.3.2
-          name: grafana
-          ports:
-            - containerPort: 3000
-          resources:
-            limits:
-              cpu: 250m
-              memory: 75Mi
-            requests:
-              cpu: 50m
-              memory: 20Mi
-          volumeMounts:
-            - name: grafana-dashboards
-              mountPath: /var/lib/grafana
-            - name: grafana-datasource-config
-              mountPath: /etc/grafana/provisioning/datasources/datasource.yaml
-              subPath: datasource.yaml
-      restartPolicy: Always
-      volumes:
-        - name: grafana-dashboards
-          persistentVolumeClaim:
-            claimName: grafana-pvc
-        - name: grafana-datasource-config
-          configMap:
-            name: grafana-datasource-config
+      type: LoadBalancer
 ---
-apiVersion: v1
-kind: Service
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
 metadata:
-  labels:
-    instrumentation: grafana
-  name: grafana-service
+  name: grafana-datasource-prometheus
 spec:
-  type: LoadBalancer
-  ports:
-    - name: http
-      port: 3000
-      targetPort: 3000
-  selector:
-    instrumentation: grafana
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  datasource:
+    name: Prometheus
+    type: prometheus
+    url: http://prometheus-operated:9090
+    isDefault: true
+    access: proxy
+    editable: true
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
 metadata:
-  name: grafana-pvc
-  labels:
-    instrumentation: grafana
+  name: grafana-datasource-jaeger
 spec:
-  resources:
-    requests:
-      storage: 100Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  datasource:
+    name: Jaeger
+    type: jaeger
+    url: http://jaeger-query:16686
+    isDefault: false
+    access: proxy
+    editable: true
