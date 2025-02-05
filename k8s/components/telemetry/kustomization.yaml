@@ -11,12 +11,12 @@ resources:
   - https://download.elastic.co/downloads/eck/2.14.0/operator.yaml
   - kubernetes-dashboard.yaml
   - fluentd.yaml
-  - kibana-instance.yaml
-  - elasticsearch-instance.yaml
-  - jaeger-instance.yaml
-  - otel-collector-instance.yaml
-  - grafana-instance.yaml
-  - prometheus-instance.yaml
+  - kibana.yaml
+  - elasticsearch.yaml
+  - jaeger.yaml
+  - otel-collector.yaml
+  - grafana.yaml
+  - prometheus.yaml
 
 configMapGenerator:
   - name: fluentd-config
