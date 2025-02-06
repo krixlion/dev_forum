@@ -2,3 +2,5 @@ main
 deploy
 dev_forum
 *.exe
+vendor/
+k8s/**/charts/

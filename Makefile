@@ -1,7 +1,7 @@
 .PHONY: deploy
 
 deploy: # params: overlay
-	kubectl -k k8s/overlays/${overlay} apply
+	kubectl kustomize k8s/overlays/${overlay} --enable-helm | kubectl create -f -
 
 add-module: # params: url
 	git submodule add ${url}
