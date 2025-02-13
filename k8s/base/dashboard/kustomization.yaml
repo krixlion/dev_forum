@@ -1,0 +1,37 @@
+resources:
+  - namespace.yaml
+  - service-account.yaml
+
+namespace: kubernetes-dashboard
+
+helmCharts:
+  - name: metrics-server
+    releaseName: metrics-server
+    namespace: kubernetes-dashboard
+    repo: https://kubernetes-sigs.github.io/metrics-server/
+    version: 3.12.2
+    valuesInline:
+      serviceAccount:
+        name: admin-user
+        create: false
+      args:
+        - --kubelet-insecure-tls
+
+  - name: kubernetes-dashboard
+    releaseName: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    repo: https://kubernetes.github.io/dashboard
+    version: 6.0.8
+    valuesInline:
+      metricsScraper:
+        enabled: true
+      # https://github.com/kubernetes/dashboard/issues/5369#issuecomment-659033350
+      serviceAccount:
+        name: admin-user
+        create: false
+      extraArgs:
+        - --enable-skip-login=true
+        - --token-ttl=0
+      service:
+        type: LoadBalancer
+        externalPort: 8002
