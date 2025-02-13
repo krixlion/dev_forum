@@ -1,15 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
+
 resources:
   - observability-namespace.yaml
   - https://github.com/jaegertracing/jaeger-operator/releases/download/v1.62.0/jaeger-operator.yaml
   - https://github.com/open-telemetry/opentelemetry-operator/releases/download/v0.110.0/opentelemetry-operator.yaml
-  - https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.2/components.yaml
   - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.77.1/bundle.yaml
   - https://github.com/grafana/grafana-operator/releases/download/v5.14.0/kustomize-cluster_scoped.yaml
   - https://download.elastic.co/downloads/eck/2.14.0/crds.yaml
   - https://download.elastic.co/downloads/eck/2.14.0/operator.yaml
-  - kubernetes-dashboard.yaml
   - fluentd.yaml
   - kibana.yaml
   - elasticsearch.yaml
