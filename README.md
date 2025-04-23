@@ -11,15 +11,6 @@ Please feel free to open issues or submit pull requests.
 Dev forum is a project I've started in order to familiarize myself with the concept and implementation of microservices and related patterns in Go.
 Since this project was created for educational purposes only, the business logic is intentionally kept very basic so I could focus on learning new tools and technologies without wasting time trying to find solutions to made-up problems.
 
-## Learning Objectives
-
-- **Microservice Architecture**: Understand how to design applications as a collection of small, loosely coupled services.
-- **Hands-on Kubernetes Experience**: Learn to develop, test, deploy and scale applications using Kubernetes.
-- **Resilience and Availability**: Implement services in a way that ensures horizontal scalability and high availability by avoiding [SPOFs](https://en.wikipedia.org/wiki/Single_point_of_failure) and bottlenecks.
-- **Debugging and Monitoring**: Learn how to monitor the health of services and debug the common issues that may arise.
-
-Configurations for DBs, message brokers etc. are kept at bare minimum required to work so I can focus on the code instead.
-
 ## Use-cases
 
 Dev forum allows users to register.
